@@ -1,0 +1,94 @@
+{
+  "info": {
+    "name": "Payment Retry Status Service Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "demo-key-001"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 499\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/payments",
+          "host": ["{{baseUrl}}"],
+          "path": ["payments"]
+        }
+      }
+    },
+    {
+      "name": "List Payments",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/payments",
+          "host": ["{{baseUrl}}"],
+          "path": ["payments"]
+        }
+      }
+    },
+    {
+      "name": "Get Payment Status",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/payments/{{paymentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["payments", "{{paymentId}}"]
+        }
+      }
+    },
+    {
+      "name": "Trigger Retry",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/payments/{{paymentId}}/retry",
+          "host": ["{{baseUrl}}"],
+          "path": ["payments", "{{paymentId}}", "retry"]
+        }
+      }
+    },
+    {
+      "name": "Get Retry History",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/payments/{{paymentId}}/retries",
+          "host": ["{{baseUrl}}"],
+          "path": ["payments", "{{paymentId}}", "retries"]
+        }
+      }
+    },
+    {
+      "name": "Delete Payment",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseUrl}}/payments/{{paymentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["payments", "{{paymentId}}"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "paymentId",
+      "value": ""
+    }
+  ]
+}
